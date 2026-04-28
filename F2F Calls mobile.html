@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Оценка визита бренд-менеджера</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=cabinet-grotesk@700,800&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme="light"] {
+      --text-xs: clamp(0.75rem, 0.72rem + 0.2vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 0.84rem + 0.2vw, 1rem);
+      --text-base: clamp(1rem, 0.97rem + 0.2vw, 1.06rem);
+      --text-lg: clamp(1.14rem, 1.02rem + 0.5vw, 1.42rem);
+      --text-xl: clamp(1.42rem, 1.15rem + 1vw, 1.92rem);
+      --space-1: .25rem; --space-2: .5rem; --space-3: .75rem; --space-4: 1rem; --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem;
+      --bg: #eef3fb;
+      --surface: rgba(255,255,255,0.82);
+      --surface-strong: rgba(255,255,255,0.96);
+      --surface-soft: #f8fbff;
+      --border: rgba(72,108,168,0.20);
+      --stroke: #5d7fc0;
+      --text: #172033;
+      --muted: #6b7587;
+      --primary: #1b4fd6;
+      --primary-strong: #163fb0;
+      --primary-soft: rgba(27,79,214,0.10);
+      --success: #2ea76b;
+      --success-soft: rgba(46,167,107,0.16);
+      --warning: #f0b542;
+      --warning-soft: rgba(240,181,66,0.18);
+      --danger: #e05555;
+      --danger-soft: rgba(224,85,85,0.16);
+      --radius-sm: .9rem; --radius-md: 1.1rem; --radius-lg: 1.45rem; --radius-xl: 1.8rem; --radius-full: 999px;
+      --shadow-sm: 0 8px 24px rgba(38, 63, 105, 0.08);
+      --shadow-md: 0 20px 46px rgba(28, 50, 88, 0.14);
+      --font-body: 'Satoshi', 'Inter', sans-serif;
+      --font-display: 'Cabinet Grotesk', 'Satoshi', sans-serif;
+      --transition: 220ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-theme="dark"] {
+      --bg: #0f1622;
+      --surface: rgba(22,31,46,0.82);
+      --surface-strong: rgba(24,34,50,0.96);
+      --surface-soft: #182233;
+      --border: rgba(132,166,227,0.22);
+      --stroke: #83a6e3;
+      --text: #eef4ff;
+      --muted: #98a5bb;
+      --primary: #7fa8ff;
+      --primary-strong: #9ebdff;
+      --primary-soft: rgba(127,168,255,0.12);
+      --success: #5bcf90;
+      --success-soft: rgba(91,207,144,0.16);
+      --warning: #f4c96b;
+      --warning-soft: rgba(244,201,107,0.16);
+      --danger: #f07a7a;
+      --danger-soft: rgba(240,122,122,0.16);
+      --shadow-sm: 0 10px 24px rgba(0,0,0,0.22);
+      --shadow-md: 0 22px 50px rgba(0,0,0,0.34);
+    }
+
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(109, 154, 255, 0.22), transparent 30%),
+        radial-gradient(circle at top right, rgba(71, 207, 160, 0.16), transparent 28%),
+        linear-gradient(180deg, var(--bg), color-mix(in srgb, var(--bg) 82%, white 18%));
+    }
+
+    button, input, textarea { font: inherit; color: inherit; }
+    button { cursor: pointer; }
+    .app {
+      width: min(100%, 480px);
+      margin: 0 auto;
+      padding: max(env(safe-area-inset-top), 1rem) 1rem max(env(safe-area-inset-bottom), 1.2rem);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 2rem;
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: auto -20% -35% auto;
+      width: 12rem;
+      height: 12rem;
+      background: radial-gradient(circle, rgba(27,79,214,0.12), transparent 70%);
+      pointer-events: none;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: .75rem;
+      margin-bottom: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: .85rem;
+      min-width: 0;
+    }
+
+    .logo {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 1rem;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: linear-gradient(135deg, var(--primary), color-mix(in srgb, var(--primary) 58%, white 42%));
+      box-shadow: 0 16px 30px rgba(27,79,214,0.28);
+      flex: 0 0 auto;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      line-height: 1.02;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .brand p {
+      margin: .28rem 0 0;
+      color: var(--muted);
+      font-size: var(--text-sm);
+      line-height: 1.35;
+    }
+
+    .theme-toggle {
+      min-width: 2.85rem;
+      min-height: 2.85rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--surface-strong);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .8rem;
+      margin-top: .2rem;
+    }
+
+    .hero-stat {
+      position: relative;
+      padding: 1rem 1.05rem;
+      border-radius: 1.35rem;
+      background: linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 92%, white 8%), var(--surface-strong));
+      border: 1px solid color-mix(in srgb, var(--border) 88%, rgba(255,255,255,0.2));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.55), 0 10px 20px rgba(34, 58, 101, 0.06);
+      overflow: hidden;
+    }
+
+    .hero-stat::after {
+      content: '';
+      position: absolute;
+      inset: auto -18% -50% auto;
+      width: 5.5rem;
+      height: 5.5rem;
+      border-radius: 50%;
+      background: radial-gradient(circle, color-mix(in srgb, var(--primary-soft) 65%, transparent), transparent 68%);
+      pointer-events: none;
+    }
+
+    .hero-stat span,
+    .chip,
+    .field label,
+    .criterion-kicker,
+    .result-label {
+      display: block;
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .hero-stat strong {
+      display: flex;
+      align-items: baseline;
+      justify-content: flex-start;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      gap: 0;
+      margin-top: .35rem;
+      font-size: clamp(1.55rem, 1.3rem + .9vw, 2rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .hero-stat strong span {
+      display: inline-block;
+      font: inherit;
+      line-height: 1;
+      letter-spacing: inherit;
+    }
+
+    .surface-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1.85rem;
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .chip {
+      padding: .38rem .7rem;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .8rem;
+    }
+
+    .field {
+      display: grid;
+      gap: .45rem;
+    }
+
+    .input, .textarea {
+      width: 100%;
+      min-height: 3.25rem;
+      border: 1px solid transparent;
+      border-radius: 1.1rem;
+      background: var(--surface-strong);
+      padding: .95rem 1rem;
+      outline: none;
+      box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--stroke) 28%, transparent);
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+    }
+
+    .input:focus,
+    .textarea:focus {
+      transform: translateY(-1px);
+      box-shadow: inset 0 0 0 1px var(--primary), 0 0 0 5px color-mix(in srgb, var(--primary) 12%, transparent);
+    }
+
+    .textarea { min-height: 6.4rem; resize: vertical; }
+    .criteria-list { display: grid; gap: .8rem; }
+
+    .criterion-card {
+      --accent: var(--stroke);
+      --accent-soft: color-mix(in srgb, var(--primary-soft) 55%, var(--surface-strong));
+      border-radius: 1.45rem;
+      border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+      background: linear-gradient(180deg, color-mix(in srgb, var(--accent-soft) 70%, var(--surface) 30%), var(--surface-strong));
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition), background var(--transition);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);
+    }
+
+    .criterion-card.open {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 34px color-mix(in srgb, var(--accent) 15%, transparent);
+    }
+
+    .criterion-toggle {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      padding: 1rem;
+      min-height: 4.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .8rem;
+      text-align: left;
+    }
+
+    .criterion-info { min-width: 0; }
+
+    .criterion-kicker {
+      margin-bottom: .22rem;
+      color: color-mix(in srgb, var(--accent) 70%, var(--muted));
+    }
+
+    .criterion-title {
+      font-size: var(--text-base);
+      font-weight: 800;
+      line-height: 1.28;
+      color: var(--text);
+    }
+
+    .criterion-status {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      margin-top: .38rem;
+      padding: .26rem .55rem;
+      border-radius: 999px;
+      font-size: .78rem;
+      font-weight: 700;
+      color: color-mix(in srgb, var(--accent) 90%, #1d2430);
+      background: color-mix(in srgb, var(--accent-soft) 88%, white 12%);
+    }
+
+    .criterion-arrow {
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: color-mix(in srgb, var(--accent-soft) 92%, white 8%);
+      color: var(--accent);
+      flex: 0 0 auto;
+      transition: transform var(--transition), background var(--transition);
+    }
+
+    .criterion-card.open .criterion-arrow { transform: rotate(180deg); }
+
+    .criterion-content {
+      display: grid;
+      gap: .85rem;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      padding: 0 1rem;
+      transition: max-height 280ms ease, opacity 220ms ease, padding 220ms ease;
+    }
+
+    .criterion-card.open .criterion-content {
+      max-height: 24rem;
+      opacity: 1;
+      padding: 0 1rem 1rem;
+    }
+
+    .rating-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: .55rem;
+    }
+
+    .rating-grid input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .score-pill {
+      min-height: 3rem;
+      border-radius: 1rem;
+      display: grid;
+      place-items: center;
+      background: var(--surface-strong);
+      box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--stroke) 20%, transparent);
+      font-size: var(--text-sm);
+      font-weight: 900;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition);
+    }
+
+    .rating-grid input:checked + .score-pill {
+      transform: translateY(-2px) scale(1.02);
+      color: white;
+      box-shadow: 0 14px 24px color-mix(in srgb, var(--accent) 26%, transparent);
+    }
+
+    .rating-grid input[data-score="1"]:checked + .score-pill { background: var(--danger); }
+    .rating-grid input[data-score="2"]:checked + .score-pill { background: color-mix(in srgb, var(--danger) 68%, var(--warning)); }
+    .rating-grid input[data-score="3"]:checked + .score-pill { background: var(--warning); color: #513800; }
+    .rating-grid input[data-score="4"]:checked + .score-pill { background: color-mix(in srgb, var(--warning) 38%, var(--success)); color: #143521; }
+    .rating-grid input[data-score="5"]:checked + .score-pill { background: var(--success); }
+
+    .comment-box {
+      min-height: 5.7rem;
+      border-radius: 1.1rem;
+      border: 1px solid transparent;
+      background: var(--surface-strong);
+      box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--stroke) 18%, transparent);
+      padding: .95rem 1rem;
+      outline: none;
+    }
+
+    .comment-box:focus {
+      box-shadow: inset 0 0 0 1px var(--accent), 0 0 0 5px color-mix(in srgb, var(--accent) 12%, transparent);
+    }
+
+    .results {
+      display: grid;
+      gap: .9rem;
+      background: linear-gradient(180deg, color-mix(in srgb, var(--primary-soft) 36%, var(--surface)), var(--surface-strong));
+    }
+
+    .results-top {
+      display: flex;
+      justify-content: space-between;
+      gap: .8rem;
+    }
+
+    .result-value {
+      display: block;
+      margin-top: .2rem;
+      font-size: var(--text-lg);
+      font-weight: 900;
+      line-height: 1.1;
+    }
+
+    .progress-track {
+      height: .9rem;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--success) 16%, var(--surface-strong));
+      overflow: hidden;
+      border: 1px solid color-mix(in srgb, var(--success) 26%, transparent);
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, color-mix(in srgb, var(--success) 70%, white), var(--success));
+      transition: width 240ms ease;
+    }
+
+    .summary {
+      background: linear-gradient(180deg, color-mix(in srgb, var(--success-soft) 52%, var(--surface)), var(--surface-strong));
+    }
+
+    .actions-shell {
+      margin-top: 1.1rem;
+      padding-bottom: max(env(safe-area-inset-bottom), 2.4rem);
+    }
+
+    .actions {
+      position: static;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: .65rem;
+      padding: .5rem;
+      border-radius: 1.7rem;
+      background: linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 88%, white 12%), color-mix(in srgb, var(--primary-soft) 12%, var(--surface-strong)));
+      border: 1px solid color-mix(in srgb, var(--border) 82%, rgba(255,255,255,0.35));
+      box-shadow: 0 18px 38px rgba(38, 58, 97, 0.12);
+    }
+
+    .btn {
+      min-height: 3.25rem;
+      border: 0;
+      border-radius: 1.05rem;
+      font-size: var(--text-sm);
+      font-weight: 800;
+      padding: .9rem .85rem;
+      letter-spacing: -0.01em;
+      transition: transform var(--transition), opacity var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition), border var(--transition);
+    }
+
+    .btn:active { transform: translateY(1px) scale(0.99); }
+    .btn-primary {
+      color: white;
+      background: linear-gradient(135deg, #4f46e5, #2563eb);
+      box-shadow: 0 16px 28px rgba(63, 94, 251, 0.24);
+    }
+    .btn-secondary {
+      background: linear-gradient(180deg, #ffffff, #f5f8ff);
+      color: #2954c8;
+      border: 1px solid rgba(82, 117, 196, 0.20);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.85);
+    }
+    .btn-registry {
+      background: linear-gradient(135deg, #0f766e, #14b8a6);
+      color: white;
+      box-shadow: 0 16px 28px rgba(20, 184, 166, 0.22);
+    }
+
+    .hint {
+      margin-top: .25rem;
+      color: var(--muted);
+      font-size: var(--text-sm);
+      line-height: 1.45;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 1.2rem;
+      transform: translateX(-50%) translateY(12px);
+      width: calc(100% - 2rem);
+      max-width: 420px;
+      padding: .95rem 1rem;
+      border-radius: 999px;
+      background: rgba(19,26,37,0.92);
+      color: white;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition), transform var(--transition);
+      backdrop-filter: blur(10px);
+    }
+
+    .toast.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .saved-sheet {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 1rem;
+      background: rgba(10, 16, 28, 0.42);
+      backdrop-filter: blur(8px);
+      z-index: 70;
+    }
+
+    .saved-sheet.open {
+      display: flex;
+    }
+
+    .saved-panel {
+      width: min(100%, 480px);
+      max-height: 78dvh;
+      overflow: auto;
+      border-radius: 1.8rem 1.8rem 1.1rem 1.1rem;
+      background: var(--surface-strong);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-md);
+      padding: 1rem;
+    }
+
+    .saved-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+      margin-bottom: .9rem;
+    }
+
+    .saved-head h3 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 800;
+    }
+
+    .saved-list {
+      display: grid;
+      gap: .75rem;
+    }
+
+    .saved-item {
+      padding: .95rem;
+      border-radius: 1.2rem;
+      background: color-mix(in srgb, var(--primary-soft) 28%, var(--surface-strong));
+      border: 1px solid var(--border);
+    }
+
+    .saved-item h4 {
+      margin: 0 0 .35rem;
+      font-size: var(--text-base);
+      font-weight: 800;
+    }
+
+    .saved-meta {
+      color: var(--muted);
+      font-size: var(--text-sm);
+      line-height: 1.4;
+      margin-bottom: .65rem;
+    }
+
+    .saved-actions {
+      display: flex;
+      gap: .55rem;
+      flex-wrap: wrap;
+    }
+
+    .saved-empty {
+      padding: 1rem;
+      border-radius: 1.15rem;
+      background: color-mix(in srgb, var(--primary-soft) 18%, var(--surface-strong));
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 390px) {
+      .grid, .actions { grid-template-columns: 1fr; }
+      .hero-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .results-top { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <meta name="theme-color" content="#4f46e5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Оценка визита">
+</head>
+<body>
+  <div class="app">
+    <section class="hero">
+      <header class="topbar">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 18V9.5L12 5L19 9.5V18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8.5 13H15.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <h1>Оценка визита медицинского представителя</h1>
+            <p>При использовании не закрывать страницу браузера.</p>
+          </div>
+        </div>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Переключить тему">◐</button>
+      </header>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span>Оценено</span>
+          <strong><span id="ratedCount">0</span><span>/</span><span id="ratedTotal">10</span></strong>
+        </div>
+        <div class="hero-stat">
+          <span>Средний балл</span>
+          <strong id="averageScore">0.0</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="surface-card">
+      <div class="section-head">
+        <h2>Данные визита</h2>
+        <span class="chip">Mobile first</span>
+      </div>
+      <div class="grid">
+        <div class="field">
+          <label for="rep-name">ФИО представителя</label>
+          <input class="input" id="rep-name" type="text" placeholder="Введите ФИО">
+        </div>
+        <div class="field">
+          <label for="address">Адрес</label>
+          <input class="input" id="address" type="text" placeholder="Город, ЛПУ, филиал">
+        </div>
+        <div class="field">
+          <label for="manager">Руководитель</label>
+          <input class="input" id="manager" type="text" placeholder="ФИО руководителя">
+        </div>
+        <div class="field">
+          <label for="audience">Врач/аптека/ЛПУ</label>
+          <input class="input" id="audience" type="text" placeholder="Тип визита">
+        </div>
+        <div class="field">
+          <label for="evaluator">Оценивающий</label>
+          <input class="input" id="evaluator" type="text" placeholder="Кто проводит оценку">
+        </div>
+        <div class="field">
+          <label for="brand">Бренд интереса</label>
+          <input class="input" id="brand" type="text" placeholder="Название бренда">
+        </div>
+      </div>
+    </section>
+
+    <section class="surface-card">
+      <div class="section-head">
+        <h2>Критерии оценки</h2>
+        <span class="chip">Tap to open</span>
+      </div>
+      <div class="criteria-list" id="criteriaList"></div>
+      <p class="hint">После выбора оценки карточка вопроса подсвечивается тем же цветом, что и выбранный балл.</p>
+    </section>
+
+    <section class="surface-card results">
+      <div class="results-top">
+        <div>
+          <span class="result-label">Текущий результат</span>
+          <strong class="result-value" id="resultText">0/7 критериев</strong>
+        </div>
+        <div>
+          <span class="result-label">Средний балл</span>
+          <strong class="result-value" id="resultAverage">0.0</strong>
+        </div>
+      </div>
+      <div class="progress-track" aria-label="Прогресс заполнения">
+        <div class="progress-fill" id="progressBar"></div>
+      </div>
+    </section>
+
+    <section class="surface-card summary">
+      <div class="section-head">
+        <h2>Итог</h2>
+        <span class="chip">Feedback</span>
+      </div>
+      <div class="field">
+        <label for="strengths">Сильные стороны</label>
+        <textarea class="textarea" id="strengths" placeholder="Что было сделано особенно хорошо"></textarea>
+      </div>
+      <div class="field" style="margin-top: .85rem;">
+        <label for="growth">Зоны развития</label>
+        <textarea class="textarea" id="growth" placeholder="Какие навыки или блоки стоит усилить"></textarea>
+      </div>
+    </section>
+
+    <div class="actions-shell">
+      <div class="actions">
+        <button class="btn btn-primary" type="button" id="saveRegistryBtn">Сохранить</button>
+        <button class="btn btn-registry" type="button" id="openRegistryBtn">Реестр</button>
+        <button class="btn btn-secondary" type="button" id="exportBtn">TXT</button>
+        <button class="btn btn-primary" type="button" id="resetBtn">Новая анкета</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="saved-sheet" id="savedSheet" aria-hidden="true">
+    <div class="saved-panel" role="dialog" aria-modal="true" aria-labelledby="savedTitle">
+      <div class="saved-head">
+        <h3 id="savedTitle">Реестр заполненных шаблонов</h3>
+        <div style="display:flex; gap:.5rem; flex-wrap:wrap; justify-content:flex-end;">
+          <button class="btn btn-secondary" type="button" id="backupRegistryBtn">Резерв TXT</button>
+          <button class="btn btn-secondary" type="button" id="importRegistryBtn">Импорт</button>
+          <button class="btn btn-secondary" type="button" id="closeSavedBtn">Закрыть</button>
+        </div>
+      </div>
+      <input type="file" id="registryFileInput" accept=".json,application/json" class="sr-only">
+      <div class="saved-list" id="savedList"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const STORAGE_KEY = 'visit-brand-manager-registry-v2';
+    const criteria = [
+      'Обозначена цель визита',
+      'Озвучен портрет пациента',
+      'Презентация в форме FAB',
+      'Произнесены ключевые сообщения',
+      'Соответствие визита стратегии',
+      'Аргументации против конкурентов',
+      'Отработка возражений',
+      'Знание препаратов (инструкция по применению)',
+      'Использует слайды',
+      'Использует промо'
+    ];
+
+    const scoreStyles = {
+      1: { color: 'var(--danger)', soft: 'var(--danger-soft)', label: 'Низкая оценка' },
+      2: { color: 'color-mix(in srgb, var(--danger) 68%, var(--warning))', soft: 'color-mix(in srgb, var(--danger-soft) 70%, var(--warning-soft))', label: 'Есть пробелы' },
+      3: { color: 'var(--warning)', soft: 'var(--warning-soft)', label: 'Средний уровень' },
+      4: { color: 'color-mix(in srgb, var(--warning) 38%, var(--success))', soft: 'color-mix(in srgb, var(--warning-soft) 55%, var(--success-soft))', label: 'Хороший уровень' },
+      5: { color: 'var(--success)', soft: 'var(--success-soft)', label: 'Сильное выполнение' }
+    };
+
+    const criteriaList = document.getElementById('criteriaList');
+    const ratedCountEl = document.getElementById('ratedCount');
+    const averageScoreEl = document.getElementById('averageScore');
+    const resultTextEl = document.getElementById('resultText');
+    const resultAverageEl = document.getElementById('resultAverage');
+    const progressBar = document.getElementById('progressBar');
+    const savedSheet = document.getElementById('savedSheet');
+    const savedList = document.getElementById('savedList');
+    const snapshots = [];
+
+    function storageAvailable() {
+      try {
+        const key = '__visit_test__';
+        localStorage.setItem(key, '1');
+        localStorage.removeItem(key);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    function persistSnapshots() {
+      if (!storageAvailable()) return false;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(snapshots));
+      return true;
+    }
+
+    function loadSnapshotsFromStorage() {
+      if (!storageAvailable()) return false;
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return false;
+      try {
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return false;
+        snapshots.length = 0;
+        parsed.forEach(item => snapshots.push(item));
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    function getSnapshotTitle(form) {
+      const raw = (form?.header?.repName || '').trim().replace(/\s+/g, ' ');
+      return raw || 'Не указано ФИО';
+    }
+
+    criteria.forEach((name, index) => {
+      const card = document.createElement('article');
+      card.className = 'criterion-card';
+      card.dataset.criterion = index;
+      card.innerHTML = `
+        <button class="criterion-toggle" type="button" aria-expanded="false" aria-controls="criterion-content-${index}">
+          <div class="criterion-info">
+            <span class="criterion-kicker">Критерий ${index + 1}</span>
+            <div class="criterion-title">${name}</div>
+            <div class="criterion-status" id="status-${index}">Не оценено</div>
+          </div>
+          <span class="criterion-arrow" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </button>
+        <div class="criterion-content" id="criterion-content-${index}">
+          <div class="rating-grid" role="radiogroup" aria-label="Оценка: ${name}">
+            ${[1,2,3,4,5].map(score => `
+              <div>
+                <input type="radio" id="c${index}-s${score}" name="criterion-${index}" value="${score}" data-score="${score}">
+                <label class="score-pill" for="c${index}-s${score}">${score}</label>
+              </div>
+            `).join('')}
+          </div>
+          <textarea class="comment-box" id="comment-${index}" placeholder="Добавьте наблюдение или комментарий"></textarea>
+        </div>
+      `;
+      criteriaList.appendChild(card);
+    });
+
+    function getScores() {
+      return criteria.map((_, index) => {
+        const checked = document.querySelector(`input[name="criterion-${index}"]:checked`);
+        return checked ? Number(checked.value) : null;
+      });
+    }
+
+    function refreshCriterionVisual(index) {
+      const card = document.querySelector(`[data-criterion="${index}"]`);
+      const checked = document.querySelector(`input[name="criterion-${index}"]:checked`);
+      const status = document.getElementById(`status-${index}`);
+      if (!card || !status) return;
+
+      if (!checked) {
+        card.style.setProperty('--accent', 'var(--stroke)');
+        card.style.setProperty('--accent-soft', 'color-mix(in srgb, var(--primary-soft) 55%, var(--surface-strong))');
+        status.textContent = 'Не оценено';
+        return;
+      }
+
+      const config = scoreStyles[checked.value];
+      card.style.setProperty('--accent', config.color);
+      card.style.setProperty('--accent-soft', config.soft);
+      status.textContent = `${checked.value} балл · ${config.label}`;
+    }
+
+    function updateStats() {
+      const scores = getScores().filter(v => v !== null);
+      const rated = scores.length;
+      const average = rated ? scores.reduce((sum, val) => sum + val, 0) / rated : 0;
+      ratedCountEl.textContent = rated;
+      averageScoreEl.textContent = average.toFixed(1);
+      resultTextEl.textContent = `${rated}/${criteria.length} критериев`;
+      resultAverageEl.textContent = average.toFixed(1);
+      progressBar.style.width = `${(rated / criteria.length) * 100}%`;
+    }
+
+    document.addEventListener('click', (event) => {
+      const toggle = event.target.closest('.criterion-toggle');
+      if (!toggle) return;
+      const card = toggle.closest('.criterion-card');
+      const isOpen = card.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    document.addEventListener('change', (event) => {
+      if (!event.target.matches('input[type="radio"]')) return;
+      const card = event.target.closest('.criterion-card');
+      if (card) {
+        card.classList.add('open');
+        const toggle = card.querySelector('.criterion-toggle');
+        if (toggle) toggle.setAttribute('aria-expanded', 'true');
+        refreshCriterionVisual(card.dataset.criterion);
+      }
+      updateStats();
+    });
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('visible');
+      clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(() => toast.classList.remove('visible'), 2200);
+    }
+
+    function getFormData() {
+      const header = {
+        repName: document.getElementById('rep-name').value.trim(),
+        address: document.getElementById('address').value.trim(),
+        manager: document.getElementById('manager').value.trim(),
+        audience: document.getElementById('audience').value.trim(),
+        evaluator: document.getElementById('evaluator').value.trim(),
+        brand: document.getElementById('brand').value.trim(),
+        strengths: document.getElementById('strengths').value.trim(),
+        growth: document.getElementById('growth').value.trim()
+      };
+
+      const details = criteria.map((name, index) => {
+        const checked = document.querySelector(`input[name="criterion-${index}"]:checked`);
+        const comment = document.getElementById(`comment-${index}`).value.trim();
+        return { name, score: checked ? checked.value : '-', comment: comment || '-' };
+      });
+
+      return { header, details };
+    }
+
+    function buildTxt() {
+      const { header, details } = getFormData();
+      const avg = document.getElementById('resultAverage').textContent;
+      const count = document.getElementById('ratedCount').textContent;
+      return [
+        'ОТЧЕТ ПО ОЦЕНКЕ ВИЗИТА МЕДИЦИНСКОГО ПРЕДСТАВИТЕЛЯ', '',
+        `ФИО представителя: ${header.repName || '-'}`,
+        `Город: ${header.city || '-'}`,
+        `ЛПУ: ${header.hospital || '-'}`,
+        `Бренд менеджер: ${header.manager || '-'}`,
+        `МП: ${header.repName || '-'}`,
+        `ТМ: ${header.evaluator || '-'}`,
+        `Специальность врача: ${header.specialty || '-'}`,
+        `ФИО врача: ${header.doctorName || '-'}`,
+        `Номер визита: ${header.visitNumber || '-'}`,
+        `Оценено критериев: ${count}/${criteria.length}`,
+        `Средняя оценка: ${avg}`,
+        '', 'ДАННЫЕ ВИЗИТА:',
+        `Дата: ${header.visitDate || '-'}`,
+        `Город: ${header.city || '-'}`,
+        `ЛПУ: ${header.hospital || '-'}`,
+        `Бренд менеджер: ${header.manager || '-'}`,
+        `МП: ${header.repName || '-'}`,
+        `ТМ: ${header.evaluator || '-'}`,
+        `Специальность врача: ${header.specialty || '-'}`,
+        `ФИО врача: ${header.doctorName || '-'}`,
+        `Номер визита: ${header.visitNumber || '-'}`,
+        '', 'КРИТЕРИИ ОЦЕНКИ:',
+        ...details.flatMap((item, idx) => [`${idx + 1}. ${item.name}`, `   Оценка: ${item.score}`, `   Комментарий: ${item.comment || '-'}`, '']),
+        'ИТОГ:',
+        `Сильные стороны: ${header.strengths || '-'}`,
+        `Зоны развития: ${header.growth || '-'}`,
+        `Дополнительные комментарии: ${header.marketingComment || '-'}`
+      ].join('\n');
+    }
+
+    function buildTxtFromSnapshot(item) {
+      const { header, details } = item.snapshot;
+      return [
+        'ОТЧЕТ ПО ОЦЕНКЕ ВИЗИТА МЕДИЦИНСКОГО ПРЕДСТАВИТЕЛЯ', '',
+        `Название записи: ${item.title || '-'}`,
+        `Время сохранения: ${item.timeLabel || '-'}`,
+        `Дата сохранения: ${item.date || '-'}`,
+        `ФИО представителя: ${header.repName || '-'}`,
+        `Город: ${header.city || '-'}`,
+        `ЛПУ: ${header.hospital || '-'}`,
+        `Бренд менеджер: ${header.manager || '-'}`,
+        `МП: ${header.repName || '-'}`,
+        `ТМ: ${header.evaluator || '-'}`,
+        `Специальность врача: ${header.specialty || '-'}`,
+        `ФИО врача: ${header.doctorName || '-'}`,
+        `Номер визита: ${header.visitNumber || '-'}`,
+        `Оценено критериев: ${item.rated || '-'}`,
+        `Средняя оценка: ${item.average || '-'}`,
+        '', 'КРИТЕРИИ:',
+        ...details.flatMap((row, idx) => [`${idx + 1}. ${row.name}`, `   Оценка: ${row.score}`, `   Комментарий: ${row.comment}`, '']),
+        'ИТОГ:',
+        `Сильные стороны: ${header.strengths || '-'}`,
+        `Зоны развития: ${header.growth || '-'}`,
+        `Дополнительные комментарии: ${header.marketingComment || '-'}`
+      ].join('\n');
+    }
+
+    function downloadFile(filename, content, type = 'text/plain;charset=utf-8') {
+      const blob = new Blob([content], { type });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(link.href);
+    }
+
+    function renderSnapshots() {
+      if (!snapshots.length) {
+        savedList.innerHTML = '<div class="saved-empty">Пока нет сохраненных анкет. Нажмите «Сохранить», чтобы добавить текущую заполненную анкету в реестр.</div>';
+        return;
+      }
+
+      snapshots.forEach(item => {
+        item.title = getSnapshotTitle(item.snapshot);
+      });
+      savedList.innerHTML = snapshots.map((item, index) => `
+        <article class="saved-item">
+          <h4>${item.title}</h4>
+          <div class="saved-meta">${item.timeLabel || item.date} · Средний балл: ${item.average} · Заполнено: ${item.rated}</div>
+          <div class="saved-actions">
+            <button class="btn btn-secondary" type="button" data-open-snapshot="${index}">Открыть</button>
+            <button class="btn btn-ghost" type="button" data-export-snapshot="${index}">TXT</button>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function openSavedSheet() {
+      renderSnapshots();
+      savedSheet.classList.add('open');
+      savedSheet.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeSavedSheet() {
+      savedSheet.classList.remove('open');
+      savedSheet.setAttribute('aria-hidden', 'true');
+    }
+
+    function saveSnapshot() {
+      const payload = {
+        title: `Анкета ${snapshots.length + 1}`,
+        date: new Date().toLocaleString('ru-RU'),
+        average: document.getElementById('resultAverage').textContent,
+        rated: `${document.getElementById('ratedCount').textContent}/${criteria.length}`,
+        snapshot: getFormData()
+      };
+      snapshots.unshift(payload);
+      snapshots.forEach(item => {
+        item.title = getSnapshotTitle(item.snapshot);
+      });
+      persistSnapshots();
+      renderSnapshots();
+      openSavedSheet();
+      showToast(storageAvailable() ? 'Анкета сохранена в реестр телефона' : 'Анкета сохранена только в текущей сессии');
+    }
+
+    function applySnapshot(index) {
+      const item = snapshots[index];
+      if (!item) return;
+      const { header, details } = item.snapshot;
+      document.getElementById('rep-name').value = header.repName || '';
+      document.getElementById('address').value = header.address || '';
+      document.getElementById('manager').value = header.manager || '';
+      document.getElementById('audience').value = header.audience || '';
+      document.getElementById('evaluator').value = header.evaluator || '';
+      document.getElementById('brand').value = header.brand || '';
+      document.getElementById('strengths').value = header.strengths || '';
+      document.getElementById('growth').value = header.growth || '';
+
+      document.querySelectorAll('input[type="radio"]').forEach(el => el.checked = false);
+      details.forEach((item, idx) => {
+        if (item.score !== '-') {
+          const radio = document.querySelector(`input[name="criterion-${idx}"][value="${item.score}"]`);
+          if (radio) radio.checked = true;
+        }
+        const comment = document.getElementById(`comment-${idx}`);
+        if (comment) comment.value = item.comment === '-' ? '' : item.comment;
+        refreshCriterionVisual(idx);
+      });
+      updateStats();
+      closeSavedSheet();
+      showToast('Анкета загружена из реестра');
+    }
+
+    function resetForm() {
+      document.querySelectorAll('input[type="text"], textarea').forEach(el => el.value = '');
+      document.querySelectorAll('input[type="radio"]').forEach(el => el.checked = false);
+      document.querySelectorAll('.criterion-card').forEach((card, index) => {
+        card.classList.remove('open');
+        const toggle = card.querySelector('.criterion-toggle');
+        if (toggle) toggle.setAttribute('aria-expanded', 'false');
+        refreshCriterionVisual(index);
+      });
+      updateStats();
+      showToast('Форма очищена');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      downloadFile('ocenka-vizita.txt', buildTxt());
+      showToast('TXT выгружен');
+    });
+
+    document.getElementById('saveRegistryBtn').addEventListener('click', saveSnapshot);
+    document.getElementById('openRegistryBtn').addEventListener('click', openSavedSheet);
+
+    document.getElementById('backupRegistryBtn').addEventListener('click', () => {
+      const payload = JSON.stringify(snapshots, null, 2);
+      downloadFile('reestr-shablonov-backup.json', payload, 'application/json;charset=utf-8');
+      showToast('Резервная копия реестра выгружена');
+    });
+
+    document.getElementById('importRegistryBtn').addEventListener('click', () => {
+      document.getElementById('registryFileInput').click();
+    });
+
+    document.getElementById('registryFileInput').addEventListener('change', async (event) => {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const text = await file.text();
+      try {
+        const parsed = JSON.parse(text);
+        if (!Array.isArray(parsed)) throw new Error('bad-format');
+        snapshots.length = 0;
+        parsed.forEach(item => snapshots.push(item));
+        snapshots.forEach(item => {
+          item.title = getSnapshotTitle(item.snapshot);
+        });
+        persistSnapshots();
+        renderSnapshots();
+        showToast('Реестр импортирован');
+      } catch (e) {
+        showToast('Не удалось импортировать файл');
+      }
+      event.target.value = '';
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', resetForm);
+    document.getElementById('closeSavedBtn').addEventListener('click', closeSavedSheet);
+
+    savedList.addEventListener('click', (event) => {
+      const openBtn = event.target.closest('[data-open-snapshot]');
+      if (openBtn) {
+        applySnapshot(Number(openBtn.dataset.openSnapshot));
+        return;
+      }
+      const exportBtn = event.target.closest('[data-export-snapshot]');
+      if (exportBtn) {
+        const item = snapshots[Number(exportBtn.dataset.exportSnapshot)];
+        if (!item) return;
+        downloadFile(`${item.title.replace(/\s+/g, '-').toLowerCase()}.json`, TXT.stringify(item, null, 2), 'application/json;charset=utf-8');
+        showToast('Анкета выгружена');
+      }
+    });
+
+    savedSheet.addEventListener('click', (event) => {
+      if (event.target === savedSheet) closeSavedSheet();
+    });
+
+    const themeToggle = document.querySelector('[data-theme-toggle]');
+    let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+    themeToggle.addEventListener('click', () => {
+      theme = theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+    });
+
+    criteria.forEach((_, index) => refreshCriterionVisual(index));
+    updateStats();
+  </script>
+<script>window.__PERSISTENT_VERSION__ = true;</script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}</script>
+</body>
+</html>
